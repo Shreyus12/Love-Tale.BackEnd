@@ -1,6 +1,8 @@
 //all-Breeds
 
-const db = require('./db')
+const db = client.db(process.env.MONGODB_DB_NAME);
+
+
 
 const allBreeds = () => {
     return db.Breed.find().then(
