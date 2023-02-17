@@ -1,17 +1,19 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost:27017/lovetale',()=>
-{
-    console.log('mongodb connection successful');
+mongoose.connect('mongodb://localhost:27017/lovetale', () => {
+  console.log('mongodb connection successful');
 })
 
+
+
+
 const Breed = mongoose.model('Breed',
-{
+  {
     breed: String,
-    id:Number,
+    id: Number,
     breedType: String,
     origin: String,
-    age:String,
+    age: String,
     popularity: Number,
     temperament: [String],
     hypoallergenic: String,
@@ -21,33 +23,66 @@ const Breed = mongoose.model('Breed',
   })
 
 
-  const Seller = mongoose.model('Seller',
+
+
+const Seller = mongoose.model('Seller',
   {
     name: String,
-    id:Number,
+    id: Number,
     contact: String,
-    email: String,
-    location: String
+    location: String,
+    count: Number
   })
 
-
-
-
-
-
-
-
-
-
-
-
-
-  module.exports =
+  const User = mongoose.model('User',
   {
-    Breed,
-    Seller
-    
-    
+    name: String,
+    phone: Number,
+    email: String
+  })
+
+  const Log = mongoose.model('Log',
+    {
+        email: String,
+        password: String
+    })
+
+    const Sellerlist = mongoose.model('Sellerlist',
+    {
+      breed: String,
+      id: Number,
+      breedType: String,
+      origin: String,
+      age: String,
+      popularity: Number,
+      temperament: [String],
+      hypoallergenic: String,
+      intelligence: Number,
+      price: Number,
+      photo: String
+      })
+
+
     
 
-  }
+
+
+
+
+
+module.exports =
+{
+  Breed,
+  Seller,
+  User,
+  Log,
+  Sellerlist
+
+
+
+
+
+
+
+
+}

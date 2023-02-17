@@ -92,7 +92,7 @@ const addBreed = (breed, id, origin, age, temperament, price, photo) => {
 }
 
 
-const addSeller = (name, id, contact, email, location) => {
+const addSeller = (name, id, contact, location,count) => {
     return db.Seller.findOne({
         id
     })
@@ -112,14 +112,49 @@ const addSeller = (name, id, contact, email, location) => {
                         name: name,
                         id: id,
                         contact: contact,
-                        email: email,
                         location: location,
+                        count : count
                     })
 
                     newSeller.save()
                 return {
                     statusCode: 200,
-                    message: 'new seller details added'
+                    message: 'new breed and seller details added'
+
+                }
+            }
+
+        }
+        )
+
+
+}
+
+const adduser = (name, phone, email) => {
+    return db.User.findOne({
+        email
+    }).then((result) => {
+            console.log(result);
+            if (result) {
+                return {
+                    statusCode: 403,
+                    message: "Same  exist"
+                }
+
+            }
+            else {
+
+                const newuser = new db.User(
+                    {
+                        name: name,
+                        phone: phone,
+                        email: email
+                    })
+
+                    newuser.save()
+                return {
+                    statusCode: 200,
+                    message: 'Enquiry successfull'
 
                 }
             }
@@ -139,6 +174,28 @@ const allSellers = () => {
                 return {
                     statusCode: 200,
                     sellers: result
+                }
+
+            }
+            else {
+                return {
+                    statusCode: 404,
+                    message: "no data is present"
+                }
+
+            }
+        }
+    )
+
+}
+
+const alluser = () => {
+    return db.User.find().then(
+        (result) => {
+            if (result) {
+                return {
+                    statusCode: 200,
+                    user: result
                 }
 
             }
@@ -179,6 +236,139 @@ const viewSeller = (id) => {
 
 
 }
+
+
+
+
+
+
+const login = (email, pswd) => {
+    return db.Log.findOne({
+        email,
+        password: pswd
+    }).then((result) => {
+        if (result) {
+            return {
+                statusCode: 200,
+                message: 'Login Successfull',
+                currentEmail: email,
+            }
+        }
+        else {
+            return {
+                statusCode: 404,
+                message: 'Invalid Account/ Password'
+
+            }
+        }
+    })
+
+}
+
+const register = (email, pswd) => {
+    return db.Log.findOne({
+        email
+    }).then((result) => {
+        console.log(result);
+        if (result) {
+            return {
+                statusCode: 403,
+                message: 'Account Already Exist!! '
+            }
+
+        }
+        else {
+            const newLog = new db.Log({
+
+                email: email,
+                password: pswd
+
+            })
+            newLog.save()
+            return {
+                statusCode: 200,
+                message: 'Registeration sucessfull'
+            }
+
+        }
+
+    })
+
+}
+
+
+
+const addtosellerlist = (breed) => {
+    return db.Sellerlist.findOne({
+        id:breed.id
+    })
+    .then(
+        (result) => {
+            if (result) {
+                return {
+                    statusCode: 401,
+                    message: "Already added to delete"
+                }
+
+            }
+            else {
+
+                let newBreed = new db.Sellerlist(
+                    {
+                        breed: breed.breed,
+                        id: breed.id,
+                        breedType: breed.breedType,
+                        origin: breed.origin,
+                        age: breed.age,
+                        popularity: breed.popularity,
+                        temperament: [breed.temperament],
+                        hypoallergenic: breed.hypoallergenic,
+                        intelligence: breed.intelligence,
+                        price: breed.price,
+                        photo: breed.photo
+                      })
+                      newBreed.save()
+                return{
+                    statusCode: 200,
+                    message: 'item added to the wishlist'
+
+                }
+            }
+
+        }
+    )
+
+
+}
+
+
+const getsellerlist = () => {
+    return db.Sellerlist.find().then(
+        (result) => {
+            if (result) {
+                return {
+                    statusCode: 200,
+                    sellerlist: result
+                }
+
+            }
+            else {
+                return {
+                    statusCode: 404,
+                    message: "No data found"
+                }
+            }
+
+        }
+    )
+
+
+}
+
+
+
+
+
 
 
 
@@ -266,14 +456,6 @@ const deleteItemAllseller = (id)=>
 
 
 
-
-
-
-
-
-
-
-
 module.exports =
 {
     allBreeds,
@@ -281,9 +463,19 @@ module.exports =
     addBreed,
     allSellers,
     viewSeller,
+  addSeller,
+    adduser,
+    alluser,
+    login,
+    register,
+    addtosellerlist,
+    getsellerlist,
     deleteItemAllbreed,
-    addSeller,
     deleteItemAllseller
+    
+    
+
+    
 
 
 
