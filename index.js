@@ -8,9 +8,12 @@ const dataService = require('./services/dataservice')
 
 const server = express();
 
+const cors = require('cors');
+
 server.use(cors({
-    origin: 'http://localhost:4200'
-}))
+  origin: 'https://love-tale-front-end.vercel.app'
+}));
+
 
 server.use(express.json())
 
