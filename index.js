@@ -15,23 +15,15 @@ server.use(cors({
 server.use(express.json())
 
 
-const PORT = 3000
 
 
-server.listen(PORT, () => {
-    console.log(`API listening on PORT ${PORT} `)
+
+server.listen(3000, () => {
+    console.log('Server is listening at 3000');
 })
 
 const request = require('request');
 
-
-server.get('/', (req, res) => {
-  res.send('Hey this is my API running 🥳')
-})
-
-server.get('/about', (req, res) => {
-  res.send('This is my about route..... ')
-})
 
 
 
