@@ -31,8 +31,6 @@ async function handler(req, res) {
 module.exports = handler;
 
 
-const db = require('./db')
-
 
 const allBreeds = () => {
     return db.Breed.find().then(
