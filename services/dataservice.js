@@ -1,5 +1,36 @@
 //all-Breeds
 
+const { MongoClient } = require('mongodb');
+
+async function handler(req, res) {
+  const uri = process.env.MONGODB_URI;
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+    const collection = client.db('lovetale').collection('my-collection');
+
+    if (req.method === 'GET') {
+      const data = await collection.find().toArray();
+      res.status(200).json(data);
+    } else if (req.method === 'POST') {
+      const newData = req.body;
+      await collection.insertOne(newData);
+      res.status(201).json({ message: 'Data added successfully' });
+    } else {
+      res.status(404).json({ message: 'Invalid request method' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  } finally {
+    await client.close();
+  }
+}
+
+module.exports = handler;
+
+
 const db = require('./db')
 
 
