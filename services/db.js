@@ -1,20 +1,9 @@
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose')
 
 
-const uri = 'mongodb+srv://shreyus:vattathara31@love-tale.bxd5yd9.mongodb.net/lovetale?retryWrites=true&w=majority'
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-client.connect(err => {
-  if (err) {
-    console.error('MongoDB connection error:', err);
-  } else {
-    console.log('MongoDB connection successful');
-  }
-});
-
-module.exports = client;
-
-
+mongoose.connect('mongodb+srv://shreyus:vattathara31@love-tale.bxd5yd9.mongodb.net/lovetale',()=>{
+  console.log('Mongo Db successfull');
+})
 
 
 

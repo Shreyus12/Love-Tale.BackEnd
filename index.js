@@ -14,7 +14,7 @@ server.use(cors({
 
 server.use(express.json())
 
-server.use('/api/data', dataService);
+
 
 
 
