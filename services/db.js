@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGODB_URI, () => {
-  console.log('mongodb connection successful');
+
+mongoose.connect('mongodb+srv://shreyus:vattathara31@love-tale.bxd5yd9.mongodb.net/lovetale',()=>{
+  console.log('Mongo Db successfull');
 })
 
 

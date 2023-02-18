@@ -1,19 +1,6 @@
 //all-Breeds
 
-const MongoClient = require('mongodb').MongoClient;
-
-const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri, { useNewUrlParser: true });
-
-client.connect(err => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('mongodb connection successful');
-  }
-});
-
-module.exports = client;
+const db = require('./db')
 
 
 const allBreeds = () => {
